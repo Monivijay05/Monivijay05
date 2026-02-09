@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Will You Be My Valentine? 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 80px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ff1493;
+        }
+
+        img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 15px 0;
+            transition: 0.5s;
+        }
+
+        .zoom {
+            transform: scale(1.1);
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        #yesBtn {
+            background-color: #ff1493;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #ddd;
+        }
+
+        #proposalPage {
+            display: none;
+            margin-top: 100px;
+            color: white;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        #typingText {
+            font-size: 22px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+    <source src="nelothi.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="mainCard">
+    <h1>Vijay 💕</h1>
+
+    <!-- 📸 Couple Photo -->
+    <img src="couple.jpg" id="couplePhoto">
+
+    <h2>Will you be my Valentine? 💌</h2>
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙈</button>
+</div>
+
+<div id="proposalPage">
+    <h1>Vijay Said YES 😍💖</h1>
+    <img src="couple.jpg" class="zoom">
+    <p id="typingText"></p>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const mainCard = document.getElementById("mainCard");
+    const proposalPage = document.getElementById("proposalPage");
+    const photo = document.getElementById("couplePhoto");
+    const music = document.getElementById("bgMusic");
+
+    // No button run away effect
+    noBtn.addEventListener("mouseover", () => {
+        noBtn.style.position = "absolute";
+        noBtn.style.left = Math.random() * 80 + "%";
+        noBtn.style.top = Math.random() * 80 + "%";
+    });
+
+    // Heart Rain
+    function heartRain() {
+        setInterval(() => {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }, 300);
+    }
+
+    // Typing Effect
+    const text = "Forever starts today 💍✨";
+    let index = 0;
+
+    function typeEffect() {
+        if (index < text.length) {
+            document.getElementById("typingText").innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeEffect, 100);
+        }
+    }
+
+    // YES button click
+    yesBtn.addEventListener("click", () => {
+        music.play();          // 🎵 Play Nelothi song
+        photo.classList.add("zoom");
+        heartRain();           // ❤️ Start heart rain
+        typeEffect();          // ⌨️ Start typing text
+
+        setTimeout(() => {
+            mainCard.style.display = "none";
+            proposalPage.style.display = "block";
+        }, 800);
+    });
+
+</script>
+
+</body>
+</html>
